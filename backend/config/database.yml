@@ -1,0 +1,21 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  host: <%= ENV.fetch("POSTGRES_HOST") %>
+  username: <%= ENV.fetch("POSTGRES_USER") %>
+  password: <%= ENV.fetch("POSTGRES_PASSWORD") %>
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+
+development:
+  <<: *default
+  database: backend_development
+
+test:
+  <<: *default
+  database: backend_test
+
+production:
+  <<: *default
+  database: backend_production
+  username: backend
+  password: <%= ENV["BACKEND_DATABASE_PASSWORD"] %>
